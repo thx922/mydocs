@@ -1,0 +1,81 @@
+cd .ssh/
+ssh root@192.168.0.179
+cd /storage/dockers/commons/mysql/back-sqls/
+ls
+cd 2016-12-02/
+ ls
+scp 13-47-42.tar.gz root@192.168.0.176:/
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ike@localhost .ssh]$ su
+密码：
+➜  .ssh systemctl start sshd
+➜  .ssh cd /
+➜  / ls
+1                bin   dev  home  lib64       media  opt   root  sbin  sys  usr
+13-47-42.tar.gz  boot  etc  lib   lost+found  mnt    proc  run   srv   tmp  var
+➜  / chmod 777 13-47-42.tar.gz 
+➜  / cp 13-47-42.tar.gz /home/ike 
+➜  / exit
+[ike@localhost .ssh]$ ls
+config1  id_rsa  id_rsa.pub  known_hosts
+[ike@localhost .ssh]$ cd ~
+[ike@localhost ~]$ ls
+13-47-42.tar.gz  java      untitled      视频  新设计的商品表.odg
+docker-vpn.sh    mysql.sh  公共          图片  音乐
+fedora.sh        qq        模板          文档  桌面
+init-env.sh      soft      商品设计.odg  下载
+[ike@localhost ~]$ tar -zxvf 13-47-42.tar.gz 
+13-47-42.sql
+
+
+
+
+
+关于导入导出docker中的mysql数据库
+服务器在使用了docker后，对于备份和恢复数据库的事情做下记录：
+
+由于docker不是实体，所以要把mysql的数据库导出到物理机上，命令如下：
+
+1.先查看下mysql运行名称：
+
+docker ps
+
+结果：
+
+890103c0e891   mysql:5.6   "docker-entrypoint.sh"   4 weeks ago   Up 4 weeks   3306/tcp   mysql-online
+
+2.执行导出（备份）数据库命令：
+
+由第一步的结果可知，我们的mysql运行在一个叫mysql-online的docker容器中。而我们要备份的数据库就在里面，叫做test_db。mysql的用户名密码均为root，我们将文件备份到/opt/sql_bak文件夹下。
+
+docker exec -it mysql-online mysqldump -uroot -proot test_db > /opt/sql_bak/test_db.sql
+
+3.执行导入（恢复）数据库命令：
+
+目的：由第二步导出的sql文件，复制一个数据库。
+
+首先我们进去，创建一个空白的数据库：
+
+docker exec -it mysql-online mysql -uroot -proot
+
+create database test_db_copy;
+
+然后我们将sql文件导入：
+
+docker exec -i mysql-online mysql -uroot -proot test_db_copy < /opt/sql_bak/test_db.sql
+
+注意：这里需要将参数 -it 更换为 -i ，否则会报错："cannot enable tty mode on non tty input"
+
+
