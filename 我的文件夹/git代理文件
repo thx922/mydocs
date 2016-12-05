@@ -1,0 +1,25 @@
+[ike@localhost ~]$ cat ~/.ssh/config
+Host github.com
+	HostName github.com
+	ProxyCommand connect -S 192.168.0.179:1080 %h %p
+[ike@localhost ~]$ cat gitconfig
+cat: gitconfig: No such file or directory
+[ike@localhost ~]$ cat ~/gitconfig
+cat: /home/ike/gitconfig: No such file or directory
+[ike@localhost ~]$ cat ~/.gitconfig
+[http]
+	proxy = socks5://192.168.0.179:1080
+[ike@localhost ~]$ vim ~/.gitconfig
+
+
+
+
+➜  ike ls                           
+➜  ike rm -rf  /etc/systemd/system/docker.service.d
+➜  ike cd /etc/systemd/system/docker.service.d 
+➜  docker.service.d ls
+http-proxy.conf
+➜  docker.service.d cat http-proxy.conf 
+[Service]
+Environment=HTTP_PROXY=http://192.168.0.179:1080
+

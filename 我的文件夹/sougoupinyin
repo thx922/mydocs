@@ -1,0 +1,5 @@
+dnf config-manager --add-repo=http://repo.fdzh.org/FZUG/FZUG.repo
+
+dnf install sogoupinyin
+
+
