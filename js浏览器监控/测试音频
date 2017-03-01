@@ -1,0 +1,46 @@
+<!DOCTYPE html> 
+<html> 
+<body> 
+<audio src="/home/ike/下载/崇拜-林俊杰.mp3" controls="controls">播放音频</audio>
+<video id="myVideo" src="/home/ike/下载/瑞文的情书.mp4" controls="controls">播放音频</video>
+<!--<a href="#" id="mya">新开窗口</a>*-->
+
+<script language="JavaScript">
+ /**window.onload = function(event){
+
+debugger
+	var x = event.x;
+	var y = event.y;
+	var vedio =  document.getElementById("myVideo");
+	 var left = vedio.offsetLeft;  
+                        var top = vedio.offsetTop;  
+                        var right = vedio.offsetLeft + vedio.offsetWidth;  
+                        var bottom = vedio.offsetTop + vedio.offsetHeight;  
+                        if( x < left || x > right || y < top || y > bottom){  
+                                        //如果离开，则执行。。 
+alert("您离开了"); 
+
+
+
+}                                    }  
+**/
+var vedio =  document.getElementById("myVideo");
+// 移动了就更新最近一次移动的时间。 
+document.onmousemove = function(){ 
+window.lastMove = new Date().getTime(); 
+}; 
+window.lastMove = new Date().getTime();//最近一次移动时间 
+window.setInterval(function(){//每1秒钟检查一次。 
+var now = new Date().getTime(); 
+// 如果超时了 
+if( now - lastMove > 5000 ){ 
+// 自己写了撒。 
+alert("您离开了"); 
+ vedio.pause();
+} 
+}, 1000); 
+
+</script>
+</body> 
+</html>
+

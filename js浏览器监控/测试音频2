@@ -1,0 +1,20 @@
+<!DOCTYPE html> 
+<html> 
+<body> 
+<a href="#" id="mya">新开窗口</a>
+
+<script language="JavaScript">
+ window.onload = function(){
+
+	var myid =  document.getElementById("mya");
+	myid.onclick=function(){
+		window.open("file:///home/ike/%E4%B8%8B%E8%BD%BD/%E6%B5%8B%E8%AF%95%E9%9F%B3%E9%A2%91");
+	}
+
+}
+
+
+</script>
+</body> 
+</html>
+
