@@ -1,0 +1,107 @@
+
+清redis缓存
+：
+➜  ike docker exec -it 4b1d0b84fd07 bash
+root@adae0e85c313:/data# redis-cli
+127.0.0.1:6379> flushall
+OK
+127.0.0.1:6379> 
+
+
+清zookeeper:
+   1.进入zookeeper服务里面去
+   2.ls
+   3.cd bin
+   4.执行脚本： ./zkCli.sh
+   5.ls /
+   6.看到有dubbo,这个里面的东西都是我们注册在dubbo里面的服务，删除这个dubbo文件夹后，所有其他服务都要重启。而dubbo会自己创建。
+   7.ls /dubbo  这个命令是查看里面都有哪些服务被注册过
+   8.删除dubbo :  rmr /dubbo
+
+
+查看zookeeper注册信息：
+ls /dubbo/com.bjike.goddess.quartz.api.ScheduleJobAPI/consumer
+
+
+:
+
+postman脚本的重启docker启动：
+  ssh server
+  cd github
+  cd host-tools
+  ./restart.sh
+
+
+//issp域名解析和阿里模块部署使用
+1.现在服务器有两个nginx（nginx.host.bjike.com）,一个是对应日本的nginx(164.host.bjike.com)一个是对应阿里的。
+  日本的慢一些，存的是所有模块的.conf文件，阿里的快一些，存的是user和lendreimbursement的.conf配置文件。
+
+（1）.服务器部署项目都是用postman的脚本文件部署的，所有的.conf文件都会创建到日本的nginx。
+   ssh server 
+   ssh nginx
+   ls
+   cd github
+   cd docker-nginx
+   ls
+  现在是所有的存在日本nginx的.conf
+
+(2).把相应模块的node和java程序拷到阿里的nginx，首先还是先通过nginx进去164.host.bjike.com机子，因为nginx进其它机子不用密码
+   ssh server 
+   ssh nginx
+   ssh 164.host.bjike.com
+   ls
+   cd github
+   cd docker-nginx
+   ls
+  现在是所有的存在阿里nginx的.conf，使用 sftp远程登录nginx.host.bjike.com机子，将存在日本nginx机子上的文件拷到这里来：
+   sftp nginx.host.bjike.com
+   ls
+   cd github
+   cd docker-nginx
+   ls
+   使用get命令获取拷贝文件：
+   get user-consumer.conf
+   get user-node.conf
+   exit
+   ls
+   现在就可以看到文件已经拷到阿里的nginx了。
+
+ （3）去阿里云改域名对应的ip为164.host.bjike.com 
+
+ （4）ping user.issp.bjike.com
+     ping 165.host.bjike.com
+
+     curl localhost:node的端口
+   上面分别测试是否可以通过
+
+
+  （5）浏览器访问出错信息：
+
+      1. 404
+        服务器的容器没重启 或 稍等一下没缓冲过来
+      2. nginx错
+        服务器的容器没重启 或 程序报错
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+   
+   

@@ -1,0 +1,12 @@
+//        CloseableHttpClient httpClient = HttpClients.createDefault();
+//        HttpGet httpGet = new HttpGet("http://account.issp.bjike.com:8080/axxx/v1/dfdf");
+//        HttpPost httpPost = new HttpPost("");
+//        List<BasicNameValuePair> data = new ArrayList<>();
+//        data.add(new BasicNameValuePair("username","lake"));
+//        httpPost.setEntity(new UrlEncodedFormEntity(data, Consts.UTF_8));
+//        try {
+//            CloseableHttpResponse response = httpClient.execute(httpGet);
+//            User user = JSON.parse("自己这边建一个类","EntityUtils.toString(response.getEntity()){code:1,data:{usernmae:1234,age:''}}");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
